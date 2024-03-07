@@ -19,7 +19,6 @@ export function createAudioNode(id, type, data) {
             node.frequency.value = data.frequency;
             node.type = data.type;
             node.start();
-
             nodes.set(id, node);
             break;
         }
