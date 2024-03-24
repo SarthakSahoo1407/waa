@@ -41,9 +41,9 @@ export const useStore = create((set, get) => ({
 
     switch (type) {
       case 'osc': {
-        const data = { frequency: 440, type: 'sine' };
+        const data = {} ;
+        // const position = { x: Math.floor(Math.random() * 100000), y: Math.floor(Math.random() * 1000) };
         const position = { x: 0, y: 0 };
-
         createAudioNode(id, type, data);
         set({ nodes: [...get().nodes, { id, type, data, position }] });
 
@@ -51,7 +51,7 @@ export const useStore = create((set, get) => ({
       }
 
       case 'amp': {
-        const data = { gain: 0.5 };
+        const data = {  };
         const position = { x: 0, y: 0 };
 
         createAudioNode(id, type, data);
@@ -80,24 +80,24 @@ export const useStore = create((set, get) => ({
   },
 
   // Function to update parameters for Osc nodes
-  updateOscNode(id, freq1, freq2, type) {
-    const updatedNodes = get().nodes.map((node) => {
-      if (node.id === id && node.type === 'osc') {
-        return {
-          ...node,
-          data: {
-            ...node.data,
-            freq1,
-            freq2,
-            type
-          }
-        };
-      }
-      return node;
-    });
+  // updateOscNode(id, freq1, freq2, type) {
+  //   const updatedNodes = get().nodes.map((node) => {
+  //     if (node.id === id && node.type === 'osc') {
+  //       return {
+  //         ...node,
+  //         data: {
+  //           ...node.data,
+  //           freq1,
+  //           freq2,
+  //           type
+  //         }
+  //       };
+  //     }
+  //     return node;
+  //   });
 
-    set({ nodes: updatedNodes });
-  },
+  //   set({ nodes: updatedNodes });
+  // },
 
 
   
@@ -120,24 +120,24 @@ export const useStore = create((set, get) => ({
   //   set({ nodes: updatedNodes });
   // },
 
-  updateAmpNode(id, gain1, gain2, type) {
-    const updatedNodes = get().nodes.map((node) => {
-      if (node.id === id && node.type === 'amp') {
-        return {
-          ...node,
-          data: {
-            ...node.data,
-            gain1,
-            gain2,
-            type
-          }
-        };
-      }
-      return node;
-    });
+  // updateAmpNode(id, gain1, gain2, type) {
+  //   const updatedNodes = get().nodes.map((node) => {
+  //     if (node.id === id && node.type === 'amp') {
+  //       return {
+  //         ...node,
+  //         data: {
+  //           ...node.data,
+  //           gain1,
+  //           gain2,
+  //           type
+  //         }
+  //       };
+  //     }
+  //     return node;
+  //   });
   
-    set({ nodes: updatedNodes });
-  },
+  //   set({ nodes: updatedNodes });
+  // },
   
 
 updateOutNode() {
