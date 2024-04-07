@@ -1,244 +1,258 @@
 [
-    {
-      "Name": "Dense",
-      "params": {
-        "args": [
-          "units",
-          "**kwargs"
-        ],
-        "kwargs": {
-          "activation": "null",
-          "use_bias": true,
-          "kernel_initializer": "glorot_uniform",
-          "bias_initializer": "zeros",
-          "kernel_regularizer": "null",
-          "bias_regularizer": "null",
-          "activity_regularizer": "null",
-          "kernel_constraint": "null",
-          "bias_constraint": "null"
-        }
+  {
+    "Name": "Dense",
+    "params": {
+      "args": {
+        "units": "",
+        "**kwargs":""
       },
-      "Description": "Just your regular densely-connected NN layer."
-    },
-    {
-      "Name": "Conv1D",
-      "params": {
-        "args": [
-          "filters",
-          "kernel_size",
-          "**kwargs"
-        ],
-        "kwargs": {
-          "strides": 1,
-          "padding": "valid",
-          "data_format": "channels_last",
-          "dilation_rate": 1,
-          "activation": "null",
-          "use_bias": true,
-          "kernel_initializer": "glorot_uniform",
-          "bias_initializer": "zeros",
-          "kernel_regularizer": "null",
-          "bias_regularizer": "null",
-          "activity_regularizer": "null",
-          "kernel_constraint": "null",
-          "bias_constraint": "null"
-        },
-        "Description": "1D convolution layer (e.g. temporal convolution)."
+      "kwargs": {
+        "activation": "null",
+        "use_bias": "true",
+        "kernel_initializer": "glorot_uniform",
+        "bias_initializer": "zeros",
+        "kernel_regularizer": "null",
+        "bias_regularizer": "null",
+        "activity_regularizer": "null",
+        "kernel_constraint": "null",
+        "bias_constraint": "null",
+        "Name": "Dense"
       }
     },
-    {
-      "Name": "Conv2D",
-      "params": {
-        "args": [
-          "filters",
-          "kernel_size",
-          "**kwargs"
-        ],
-        "kwargs": {
-          "strides": 1,
-          "padding": "valid",
-          "data_format": "channels_last",
-          "dilation_rate": 1,
-          "activation": "null",
-          "use_bias": true,
-          "kernel_initializer": "glorot_uniform",
-          "bias_initializer": "zeros",
-          "kernel_regularizer": "null",
-          "bias_regularizer": "null",
-          "activity_regularizer": "null",
-          "kernel_constraint": "null",
-          "bias_constraint": "null"
-        }
+    "Description": "Just your regular densely-connected NN layer."
+  },
+  {
+    "Name": "Conv1D",
+    "params": {
+      "args": {
+        "filters":"",
+        "kernel_size":"",
+        "**kwargs":""
       },
-      "Description": "2D convolution layer (e.g. spatial convolution over images)."
-    },
-    {
-      "Name": "Pooling1D",
-      "params": {
-        "args": [
-          "pool_size",
-          "**kwargs"
-        ],
-        "kwargs": {
-          "strides": "null",
-          "padding": "valid",
-          "data_format": "channels_last"
-        }
+      "kwargs": {
+        "strides": 1,
+        "padding": "valid",
+        "data_format": "channels_last",
+        "dilation_rate": 1,
+        "activation": "null",
+        "use_bias": "true",
+        "kernel_initializer": "glorot_uniform",
+        "bias_initializer": "zeros",
+        "kernel_regularizer": "null",
+        "bias_regularizer": "null",
+        "activity_regularizer": "null",
+        "kernel_constraint": "null",
+        "bias_constraint": "null",
+        "Name": "Conv1D"
       },
-      "Description": "Max pooling operation for 1D temporal data."
-    },
-    {
-      "Name": "Pooling2D",
-      "params": {
-        "args": [
-          "pool_size",
-          "**kwargs"
-        ],
-        "kwargs": {
-          "strides": "null",
-          "padding": "valid",
-          "data_format": "channels_last"
-        }
-      },
-      "Description": "Max pooling operation for 2D spatial data."
-    },
-    {
-      "Name": "Flatten",
-      "params": {
-        "args": [
-          "data_format"
-        ],
-        "kwargs": {}
-      },
-      "Description": "Flattens the input. Does not affect the batch size."
-    },
-    {
-      "Name": "Dropout",
-      "params": {
-        "args": [
-          "rate",
-          "**kwargs"
-        ],
-        "kwargs": {}
-      },
-      "Description": "Applies Dropout to the input."
-    },
-    {
-      "Name": "LSTM",
-      "params": {
-        "args": [
-          "units",
-          "**kwargs"
-        ],
-        "kwargs": {
-          "activation": "tanh",
-          "recurrent_activation": "hard_sigmoid",
-          "use_bias": true,
-          "kernel_initializer": "glorot_uniform",
-          "recurrent_initializer": "orthogonal",
-          "bias_initializer": "zeros",
-          "unit_forget_bias": true,
-          "kernel_regularizer": "null",
-          "recurrent_regularizer": "null",
-          "bias_regularizer": "null",
-          "activity_regularizer": "null",
-          "kernel_constraint": "null",
-          "recurrent_constraint": "null",
-          "bias_constraint": "null",
-          "dropout": 0.0,
-          "recurrent_dropout": 0.0,
-          "implementation": 1,
-          "return_sequences": false,
-          "return_state": false,
-          "go_backwards": false,
-          "stateful": false,
-          "unroll": false
-        }
-      },
-      "Description": "Long Short-Term Memory layer - Hochreiter 1997."
-    },
-    {
-      "Name": "GRU",
-      "params": {
-        "args": [
-          "units",
-          "**kwargs"
-        ],
-        "kwargs": {
-          "activation": "tanh",
-          "recurrent_activation": "hard_sigmoid",
-          "use_bias": true,
-          "kernel_initializer": "glorot_uniform",
-          "recurrent_initializer": "orthogonal",
-          "bias_initializer": "zeros",
-          "kernel_regularizer": "null",
-          "recurrent_regularizer": "null",
-          "bias_regularizer": "null",
-          "activity_regularizer": "null",
-          "kernel_constraint": "null",
-          "recurrent_constraint": "null",
-          "bias_constraint": "null",
-          "dropout": 0.0,
-          "recurrent_dropout": 0.0,
-          "implementation": 1,
-          "reset_after": false,
-          "return_sequences": false,
-          "return_state": false,
-          "go_backwards": false,
-          "stateful": false,
-          "unroll": false
-        }
-      },
-      "Description": "Gated Recurrent Unit - Cho et al. 2014."
-    },
-    {
-      "Name": "SimpleRNN",
-      "params": {
-        "args": [
-          "units",
-          "**kwargs"
-        ],
-        "kwargs": {
-          "activation": "tanh",
-          "use_bias": true,
-          "kernel_initializer": "glorot_uniform",
-          "recurrent_initializer": "orthogonal",
-          "bias_initializer": "zeros",
-          "kernel_regularizer": "null",
-          "recurrent_regularizer": "null",
-          "bias_regularizer": "null",
-          "activity_regularizer": "null",
-          "kernel_constraint": "null",
-          "recurrent_constraint": "null",
-          "bias_constraint": "null",
-          "dropout": 0.0,
-          "recurrent_dropout": 0.0,
-          "return_sequences": false,
-          "return_state": false,
-          "go_backwards": false,
-          "stateful": false,
-          "unroll": false
-        }
-      },
-      "Description": "Fully-connected RNN where the output is to be fed back to input."
-    },
-    {
-      "Name": "Embedding",
-      "params": {
-        "args": [
-          "input_dim",
-          "output_dim",
-          "**kwargs"
-        ],
-        "kwargs": {
-          "input_length": "null",
-          "embeddings_initializer": "uniform",
-          "embeddings_regularizer": "null",
-          "activity_regularizer": "null",
-          "embeddings_constraint": "null",
-          "mask_zero": false
-        }
-      },
-      "Description": "Turns positive integers (indexes) into dense vectors of fixed size."
+      "Description": "1D convolution layer (e.g. temporal convolution)."
     }
-  ]
+  },
+  {
+    "Name": "Conv2D",
+    "params": {
+      "args": {
+        "filters":"",
+        "kernel_size":"",
+        "**kwargs":""
+      },
+      "kwargs": {
+        "strides": 1,
+        "padding": "valid",
+        "data_format": "channels_last",
+        "dilation_rate": 1,
+        "activation": "null",
+        "use_bias": "true",
+        "kernel_initializer": "glorot_uniform",
+        "bias_initializer": "zeros",
+        "kernel_regularizer": "null",
+        "bias_regularizer": "null",
+        "activity_regularizer": "null",
+        "kernel_constraint": "null",
+        "bias_constraint": "null",
+        "Name": "Conv2D"
+      }
+    },
+    "Description": "2D convolution layer (e.g. spatial convolution over images)."
+  },
+  {
+    "Name": "Pooling1D",
+    "params": {
+      "args": {
+        "pool_size":"",
+        "**kwargs":""
+      },
+      "kwargs": {
+        "strides": "null",
+        "padding": "valid",
+        "data_format": "channels_last",
+        "Name": "Pooling1D"
+      }
+    },
+    "Description": "Max pooling operation for 1D temporal data."
+  },
+  {
+    "Name": "Pooling2D",
+    "params": {
+      "args": {
+        "pool_size":"",
+        "**kwargs":""
+      },
+      "kwargs": {
+        "strides": "null",
+        "padding": "valid",
+        "data_format": "channels_last",
+        "Name": "Pooling2D"
+      }
+    },
+    "Description": "Max pooling operation for 2D spatial data."
+  },
+  {
+    "Name": "Flatten",
+    "params": {
+      "args": {
+        "data_format":""
+      },
+      "kwargs": {
+        "Name": "Flatten"
+      }
+    },
+    "Description": "Flattens the input. Does not affect the batch size."
+  },
+  {
+    "Name": "Dropout",
+    "params": {
+      "args": {
+        "rate": "",
+        "**kwargs": ""
+      },
+      "kwargs": {
+        "Name": "Dropout"
+      }
+    },
+    "Description": "Applies Dropout to the input."
+  },
+  {
+    "Name": "LSTM",
+    "params": {
+      "args": {
+        "units": "",
+        "**kwargs":""
+      },
+      "kwargs": {
+        "activation": "tanh",
+        "recurrent_activation": "hard_sigmoid",
+        "use_bias": "true",
+        "kernel_initializer": "glorot_uniform",
+        "recurrent_initializer": "orthogonal",
+        "bias_initializer": "zeros",
+        "unit_forget_bias": "true",
+        "kernel_regularizer": "null",
+        "recurrent_regularizer": "null",
+        "bias_regularizer": "null",
+        "activity_regularizer": "null",
+        "kernel_constraint": "null",
+        "recurrent_constraint": "null",
+        "bias_constraint": "null",
+        "dropout": 0.0,
+        "recurrent_dropout": 0.0,
+        "implementation": 1,
+        "return_sequences": "false",
+        "return_state": "false",
+        "go_backwards": "false",
+        "stateful": "false",
+        "unroll": "false",
+        "Name": "LSTM"
+      }
+    },
+    "Description": "Long Short-Term Memory layer - Hochreiter 1997."
+  },
+  {
+    "Name": "GRU",
+    "params": {
+      "args": {
+        "units": "",
+        "**kwargs":""
+      },
+      "kwargs": {
+        "activation": "tanh",
+        "recurrent_activation": "hard_sigmoid",
+        "use_bias": "true",
+        "kernel_initializer": "glorot_uniform",
+        "recurrent_initializer": "orthogonal",
+        "bias_initializer": "zeros",
+        "kernel_regularizer": "null",
+        "recurrent_regularizer": "null",
+        "bias_regularizer": "null",
+        "activity_regularizer": "null",
+        "kernel_constraint": "null",
+        "recurrent_constraint": "null",
+        "bias_constraint": "null",
+        "dropout": 0.0,
+        "recurrent_dropout": 0.0,
+        "implementation": 1,
+        "reset_after": "false",
+        "return_sequences": "false",
+        "return_state": "false",
+        "go_backwards": "false",
+        "stateful": "false",
+        "unroll": "false",
+        "Name": "GRU"
+      }
+    },
+    "Description": "Gated Recurrent Unit - Cho et al. 2014."
+  },
+  {
+    "Name": "SimpleRNN",
+    "params": {
+      "args": {
+        "units": "",
+        "**kwargs":""
+      },
+      "kwargs": {
+        "activation": "tanh",
+        "use_bias": "true",
+        "kernel_initializer": "glorot_uniform",
+        "recurrent_initializer": "orthogonal",
+        "bias_initializer": "zeros",
+        "kernel_regularizer": "null",
+        "recurrent_regularizer": "null",
+        "bias_regularizer": "null",
+        "activity_regularizer": "null",
+        "kernel_constraint": "null",
+        "recurrent_constraint": "null",
+        "bias_constraint": "null",
+        "dropout": 0.0,
+        "recurrent_dropout": 0.0,
+        "return_sequences": "false",
+        "return_state": "false",
+        "go_backwards": "false",
+        "stateful": "false",
+        "unroll": "false",
+        "Name": "SimpleRNN"
+      }
+    },
+    "Description": "Fully-connected RNN where the output is to be fed back to input."
+  },
+  {
+    "Name": "Embedding",
+    "params": {
+      "args": {
+        "input_dim":"",
+        "output_dim":"",
+        "**kwargs":""
+      },
+      "kwargs": {
+        "input_length": "null",
+        "embeddings_initializer": "uniform",
+        "embeddings_regularizer": "null",
+        "activity_regularizer": "null",
+        "embeddings_constraint": "null",
+        "mask_zero": "false",
+        "Name": "SimpleRNN"
+      }
+    },
+    "Description": "Turns positive integers (indexes) into dense vectors of fixed size."
+  }
+]
+
