@@ -1,7 +1,7 @@
-// UploadPage.jsx
-
+// // UploadPage.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+// require('dotenv').config();
 
 function UploadPage() {
   const [file, setFile] = useState(null);
@@ -50,101 +50,109 @@ function UploadPage() {
   };
 
   const handleGoToSecondPage = () => {
+    console.log()
     const data = {
       selectedFeatures,
       selectedTargets
     };
     console.log(JSON.stringify(data));
-  };
+    if (!file) {
+      console.error("No file selected.");
+      return;
+    }
 
+    const formData = new FormData();
+    formData.append("features", selectedFeatures.join(","));
+    formData.append("targets", selectedTargets.join(","));
+    formData.append("file", file);
+
+    fetch("http://10.130.0.248:8000/api/file", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("API Response:", data);
+        // Redirect to the second page or handle response as needed
+      })
+      .catch((error) => {
+        console.error("There was a problem with the API request:", error);
+      });
+  };
   return (
-    <div style={styles.container}>
-      <div style={styles.content}>
-        <h1 style={styles.heading}>Upload Page</h1>
-        <input
-          type="file"
-          accept=".csv"
-          onChange={handleFileChange}
-          style={styles.fileInput}
-        />
-        <div>
-          <h3>Features:</h3>
-          {headers.map((header, index) => (
-            <label key={index} style={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                value={header}
-                checked={selectedFeatures.includes(header)}
-                onChange={handleFeatureChange}
-                style={styles.checkbox}
-              />
-              {header}
-            </label>
-          ))}
+    <div className="flex">
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <h1 className="mb-8 text-3xl font-bold text-gray-800">Upload Page</h1>
+          <input
+            type="file"
+            accept=".csv"
+            onChange={handleFileChange}
+            className="mb-4 p-4 border border-gray-300 rounded"
+          />
+          <div className="flex flex-row mb-4">
+            <div className="mr-8">
+              <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Features:</h3>
+              {headers.map((header, index) => (
+                <div key={index} className="flex items-center mb-2">
+                  <input
+                    id={`feature-checkbox-${index}`}
+                    type="checkbox"
+                    value={header}
+                    checked={selectedFeatures.includes(header)}
+                    onChange={handleFeatureChange}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  />
+                  <label
+                    htmlFor={`feature-checkbox-${index}`}
+                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    {header}
+                  </label>
+                </div>
+              ))}
+            </div>
+  
+            <div>
+              <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Targets:</h3>
+              {headers.map((header, index) => (
+                <div key={index} className="flex items-center mb-2">
+                  <input
+                    id={`target-checkbox-${index}`}
+                    type="checkbox"
+                    value={header}
+                    checked={selectedTargets.includes(header)}
+                    onChange={handleTargetChange}
+                    disabled={selectedFeatures.includes(header)}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  />
+                  <label
+                    htmlFor={`target-checkbox-${index}`}
+                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    {header}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+  
+          <Link to="/app" className="text-white">
+            <button
+              className="px-6 py-3 text-lg font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
+              onClick={handleGoToSecondPage}
+            >
+              HyperParameters
+            </button>
+          </Link>
         </div>
-        <div>
-          <h3>Targets:</h3>
-          {headers.map((header, index) => (
-            <label key={index} style={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                value={header}
-                checked={selectedTargets.includes(header)}
-                onChange={handleTargetChange}
-                disabled={selectedFeatures.includes(header)}
-                style={styles.checkbox}
-              />
-              {header}
-            </label>
-          ))}
-        </div>
-        <Link to="/app" style={styles.link}>
-          <button style={styles.button} onClick={handleGoToSecondPage}>
-            Go to Second Page
-          </button>
-        </Link>
       </div>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-  },
-  content: {
-    textAlign: 'center',
-  },
-  heading: {
-    marginBottom: '20px',
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  fileInput: {
-    marginBottom: '20px',
-    padding: '10px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-  },
-  link: {
-    textDecoration: 'none',
-  },
-  button: {
-    padding: '10px 20px',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    color: '#fff',
-    backgroundColor: '#007bff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-    marginLeft: '10px',
-  },
-};
-
 export default UploadPage;

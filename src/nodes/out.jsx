@@ -28,21 +28,8 @@ export default function Out({ id, data }) {
     <div className={tw('rounded-md bg-white shadow-xl px-4 py-2')}>
       <Handle className={tw('w-2 h-2')} type="target" position="top" />
 
-      {/* Render combined values from Osc and Amp nodes */}
-      {/* <p>All Nodes Data: {JSON.stringify(allNodesData)}</p> */}
 
-      {/* Toggle audio button */}
-      <button onClick={toggleAudio}>
-        {isRunning ? (
-          <span role="img" aria-label="mute">
-            🔈
-          </span>
-        ) : (
-          <span role="img" aria-label="unmute">
-            🔇
-          </span>
-        )}
-      </button>
+      <p>Output Node</p>
     </div>
   );
 }

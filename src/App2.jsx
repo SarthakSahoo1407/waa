@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
-import ReactFlow, { ReactFlowProvider, Background, Panel } from "reactflow";
+import ReactFlow, { ReactFlowProvider, Panel } from "reactflow";
+import { Link } from "react-router-dom";
 import { shallow } from "zustand/shallow";
 import { useStore } from "./store";
 import { tw } from "twind";
@@ -20,8 +21,10 @@ const nodeTypes = {
 const flowKey = "example-flow";
 
 function generateId() {
-  const randomPrefix = Math.floor(Math.random() * 10000).toString().padStart(4, '0'); // 4-digit numeric prefix
-  const randomChars  = Math.random().toString(36).slice(2, 7); // 5 random alphanumeric chars
+  const randomPrefix = Math.floor(Math.random() * 10000)
+    .toString()
+    .padStart(4, "0"); // 4-digit numeric prefix
+  const randomChars = Math.random().toString(36).slice(2, 7); // 5 random alphanumeric chars
   return `${randomPrefix}${randomChars}`;
 }
 
@@ -36,19 +39,39 @@ const selector = (store) => ({
   addOsc: () => store.createNode("osc"),
   addAmp: () => store.createNode("amp"),
   createNode: (nodeType) => {
-    const id = generateId(); 
-    store.addNode({ 
+    const id = generateId();
+    store.addNode({
       id,
       type: nodeType,
-    
     });
-  }});
+  },
+});
 
 export default function App() {
   const store = useStore(selector, shallow);
   const [logData, setLogData] = useState({});
 
-  const handleLogClick = () => {
+  let jsonData = {};
+  const sendToApi = () => {
+    console.log(jsonData);
+    try {
+      const response = fetch("http://10.130.0.248:8000/api/generate", {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: jsonData, // Convert layerinfo to JSON
+      });
+
+      console.log(response);
+      console.log("Data sent to backend:", jsonData);
+    } catch (error) {
+      console.error("Error sending data to backend:", error);
+    }
+  };
+
+  const handleLogClick = async () => {
     const values = {
       InputNode: [],
       HiddenNode: [],
@@ -65,20 +88,23 @@ export default function App() {
           type: node.data.type,
         };
 
-        // Loop through each parameter object and add them to the args object
         layers.forEach((layer) => {
           if (layer.Name === node.data.type) {
             const params = layer.params;
 
-            // Loop through args
-            params.args.forEach((arg) => {
-              InputNode.args[arg] = ""; // Initialize with empty string
-            });
+            // Check if params.args is an array before attempting to iterate over it
+            if (Array.isArray(params.args)) {
+              params.args.forEach((arg) => {
+                InputNode.args[arg] = ""; // Initialize with empty string
+              });
+            } else {
+              // console.log("params.args is not an array:", params.args);
+              // continue;
+            }
 
-            // Loop through args
-            Object.entries(params.args).forEach(([key, value]) => {
-              InputNode.args[key] = value; // Set default value
-            });
+            // Since params.args is not an array, handle it differently
+            // Depending on the structure of params.args, you might need to access its properties differently
+            // You can use Object.entries or other methods to iterate over its properties
           }
         });
 
@@ -125,10 +151,10 @@ export default function App() {
       });
     });
 
-    console.log(values);
-    console.log(relation);
-
-    const jsonData = JSON.stringify({ values, relation }, null, 2);
+    // console.log(values);
+    // console.log(relation);
+    jsonData = { values, relation };
+    jsonData = JSON.stringify({ values, relation }, null, 2);
 
     // Create a blob with the JSON data
     const blob = new Blob([jsonData], { type: "application/json" });
@@ -148,6 +174,7 @@ export default function App() {
     // Clean up
     URL.revokeObjectURL(url);
     document.body.removeChild(link);
+    await sendToApi();
   };
 
   // Function to render input fields based on data from layer.json
@@ -186,6 +213,7 @@ export default function App() {
           onEdgesChange={store.onEdgesChange}
           onEdgesDelete={store.onEdgesDelete}
           onConnect={store.addEdge}
+          maxZoom={0.9}
           fitView
         >
           <Panel className={tw("space-x-4")} position="top-right">
@@ -201,14 +229,21 @@ export default function App() {
             >
               New Node
             </button>
-            <button
+            <Link to="/hyperparameter" className="text-white">
+              <button
+                className={tw("px-2 py-1 mt-4 rounded bg-white shadow")}
+                onClick={handleLogClick}
+              >
+                Log Data
+              </button>
+            </Link>
+            {/* <button
               className={tw("px-2 py-1 mt-4 rounded bg-white shadow")}
-              onClick={handleLogClick}
+              onClick={sendToApi}
             >
-              Log Data
-            </button>
+              Send data to backend
+            </button> */}
           </Panel>
-          <Background />
         </ReactFlow>
 
         {/* Render input fields for each node */}
@@ -227,7 +262,6 @@ export default function App() {
     </ReactFlowProvider>
   );
 }
-
 
 // import React, { useState, useCallback } from "react";
 // import ReactFlow, { ReactFlowProvider, Background, Panel } from "reactflow";

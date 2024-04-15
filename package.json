@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "nanoid": "^5.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "reactflow": "^11.10.4",
+    "turnstone": "^2.2.0",
     "twind": "^0.16.19",
     "zustand": "^4.5.1"
   },

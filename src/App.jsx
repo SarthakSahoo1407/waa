@@ -34,6 +34,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Im
 import UploadPage from "./UploadPage";
 import SecondPage from "./App2";
 import { ReactFlowProvider } from "reactflow";
+import MyPage from "./HyperParameters";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         {" "}
         {/* Wrap Routes around Route components */}
         <Route path="/" element={<UploadPage />} />{" "}
+        <Route path="/hyperparameter" element={<MyPage />} />{" "}
         {/* Use 'element' prop instead of direct component */}
         <Route
           path="/app"
